@@ -288,6 +288,8 @@ if(isset($_POST['search'])) {
   </div>
   <div class="col-md-4">
 
+  <!-- ChatBot -->
+
   <section>
   <div class="container">
 
@@ -300,114 +302,101 @@ if(isset($_POST['search'])) {
             <button type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">Let's Chat
               App</button>
           </div>
-          <div class="card-body" style="position: relative; height: 400px; overflow-y: scroll;">
+       
 
-            <div class="d-flex flex-row justify-content-start">
-              <img src="img/chef.jpg"
-                alt="avatar 1" style="width: 45px; height: 100%;">
-              <div>
-                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Hi</p>
-                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">How are you ...???
-                </p>
-                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">What are you doing
-                  tomorrow? Can we come up a bar?</p>
-                <p class="small ms-3 mb-3 rounded-3 text-muted">23:58</p>
-              </div>
-            </div>
+            <?php
+                        if(isset($_POST['Promt'])){
 
-            <div class="divider d-flex align-items-center mb-4">
-              <p class="text-center mx-3 mb-0" style="color: #a2aab7;">Today</p>
-            </div>
+                        $ch = curl_init();
 
-            <div class="d-flex flex-row justify-content-end mb-4 pt-1">
-              <div>
-                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Hiii, I'm good.</p>
-                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">How are you doing?</p>
-                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Long time no see! Tomorrow
-                  office. will
-                  be free on sunday.</p>
-                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:06</p>
-              </div>
-              <img src="img/chef.jpg"
-                alt="avatar 1" style="width: 45px; height: 100%;">
-            </div>
+                        $Promt = $_POST['Promt'];
 
-            <div class="d-flex flex-row justify-content-start mb-4">
-              <img src="img/chef.jpg"
-                alt="avatar 1" style="width: 45px; height: 100%;">
-              <div>
-                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Okay</p>
-                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">We will go on
-                  Sunday?</p>
-                <p class="small ms-3 mb-3 rounded-3 text-muted">00:07</p>
-              </div>
-            </div>
+                        curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/completions');
+                        $PostData = array(
+                            "model" => "text-davinci-001",
+                            "prompt"=>  $Promt,
+                            "temperature"=> 0.4,
+                            "max_tokens"=> 164,
+                            "top_p"=> 1,
+                            "frequency_penalty"=> 0,
+                            "presence_penalty"=> 0
+                        );
+                        $PostData = json_encode($PostData);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                            'Content-Type: application/json',
+                            'Authorization: Bearer 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', // Replace 'YOUR_API_KEY' with your actual API key
+                        ]);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $PostData);
 
-            <div class="d-flex flex-row justify-content-end mb-4">
-              <div>
-                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">That's awesome!</p>
-                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">I will meet you Sandon Square
-                  sharp at
-                  10 AM</p>
-                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Is that okay?</p>
-                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:09</p>
-              </div>
-              <img src="img/chef.jpg"
-                alt="avatar 1" style="width: 45px; height: 100%;">
-            </div>
+                        $response = curl_exec($ch);
 
-            <div class="d-flex flex-row justify-content-start mb-4">
-              <img src="img/chef.jpg"
-                alt="avatar 1" style="width: 45px; height: 100%;">
-              <div>
-                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Okay i will meet
-                  you on
-                  Sandon Square</p>
-                <p class="small ms-3 mb-3 rounded-3 text-muted">00:11</p>
-              </div>
-            </div>
+                        if (curl_errno($ch)) {
+                            echo 'Error: ' . curl_errno($ch);
+                        }
 
-            <div class="d-flex flex-row justify-content-end mb-4">
-              <div>
-                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Do you have pictures of Matley
-                  Marriage?</p>
-                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:11</p>
-              </div>
-              <img src="img/chef.jpg"
-                alt="avatar 1" style="width: 45px; height: 100%;">
-            </div>
+                        curl_close($ch);
+                        $response = json_decode($response, true);
+                        $result= $response['choices']['0']['text'];
 
-            <div class="d-flex flex-row justify-content-start mb-4">
-              <img src="img/chef.jpg"
-                alt="avatar 1" style="width: 45px; height: 100%;">
-              <div>
-                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Sorry I don't
-                  have. i
-                  changed my phone.</p>
-                <p class="small ms-3 mb-3 rounded-3 text-muted">00:13</p>
-              </div>
+                        echo '
+    <div class="card-body" style="position: relative; height: 400px; overflow-y: scroll;">
+        <div class="d-flex flex-row justify-content-start">
+            <img src="img/chef.jpg" alt="avatar 1" style="width: 45px; height: 100%;">
+            <div>
+                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">'.$result.'</p>
             </div>
+        </div>
+    </div>';
+                       
+      
 
-            <div class="d-flex flex-row justify-content-end">
-              <div>
-                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Okay then see you on sunday!!
-                </p>
-                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:15</p>
-              </div>
-              <img src="img/chef.jpg"
-                alt="avatar 1" style="width: 45px; height: 100%;">
-            </div>
+                  
+
+                        }
+       ?>
+
+         
+
+            <?php
+                $prompts = [];
+
+                if(isset($_POST['Promt'])){
+                  $prompts[] = $_POST['Promt'];
+                }
+
+                    // Display user prompts
+                    foreach($prompts as $prompt){
+                      echo "
+                      <div class='d-flex flex-row justify-content-end mb-4 pt-1'>
+                        <div>
+                          <p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary'>$prompt</p>
+                        </div>
+                        <img src='img/chef.jpg' alt='avatar 1' style='width: 45px; height: 100%;'>
+                      </div>
+                      ";
+                    }
+
+
+
+             ?>
+
 
             </div>
-          <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
-            <img src="img/chef.jpg"
-              alt="avatar 3" style="width: 40px; height: 100%;">
-            <input type="text" class="form-control form-control-lg" id="exampleFormControlInput1"
-              placeholder="Type message" style="border-color: transparent;box-shadow: inset 0px 0px 0px 1px transparent;">
-            <a class="ms-1 text-muted" href="#!"><i class="fas fa-paperclip"></i></a>
-            <a class="ms-3 text-muted" href="#!"><i class="fas fa-smile"></i></a>
-            <a class="ms-3" href="#!"><i class="fas fa-paper-plane"></i></a>
-          </div>
+
+      
+
+
+            <form action=" " method="POST">
+            <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+              <img src="img/chef.jpg" alt="avatar 3" style="width: 40px; height: 100%;">
+              <input type="text" name="Promt" class="form-control form-control-lg" id="exampleFormControlInput1" placeholder="Type message" style="border-color: transparent;box-shadow: inset 0px 0px 0px 1px transparent;">
+              <button type="submit" class="ms-2"><i class="fas fa-paper-plane"></i></button>
+            </div>
+          </form>
+
+
         </div>
 
       </div>

@@ -6,10 +6,10 @@ $password = "";
 $dbName = "yammy";
 
 
-$con = mysqli_connect($serverName,$userName,$password,$dbName);
+$con = mysqli_connect($serverName, $userName, $password, $dbName);
 
-if(!$con){
-    die("connection faild!!". mysqli_connect_error());
+if (!$con) {
+    die("connection faild!!" . mysqli_connect_error());
 }
 
 ?>

@@ -13,9 +13,9 @@ $recipeImage = $_FILES['image'];
 $imageLocation = $_FILES['image']['tmp_name'];
 $imageName = $_FILES['image']['name'];
 
-$image_des="img/".$imageName;
+$image_des = "img/" . $imageName;
 
-move_uploaded_file($imageLocation,$image_des);
+move_uploaded_file($imageLocation, $image_des);
 
 
 $insertQuery = "INSERT INTO `recipe_item`(`Recipe_Title`, `Recipe_Ingredient`, `Recipe_Details`,`Image`) VALUES ('$recipeName','$recipeIngredient','$recipeDetails','$image_des')";

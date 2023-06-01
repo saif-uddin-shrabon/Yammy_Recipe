@@ -28,6 +28,8 @@ if (mysqli_num_rows($duplicate_email) > 0) {
 } elseif (!mysqli_query($con, $insertQuery)) {
     echo "<script> alert('Not Registered !!'); </script>";
 } else {
-    echo "<script> alert('Successfully Registered !!'); window.location.href = 'registration.php'; </script>";
+    echo "<script> alert('Successfully Registered !!'); location.href = 'login.php'; </script>";
+
+    
 }
 ?>

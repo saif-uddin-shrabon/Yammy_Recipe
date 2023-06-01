@@ -8,7 +8,7 @@ if (isset($_POST['Promt'])) {
     curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/completions');
     $PostData = array(
         "model" => "text-davinci-001",
-        "prompt" => $Promt,
+        "prompt" =>"I have these  ingredients:".$Promt."your job is to suggest some delicious recipe using these ingredients.",
         "temperature" => 0.4,
         "max_tokens" => 164,
         "top_p" => 1,

@@ -90,11 +90,7 @@
                     </div>
 
 
-                    <!-- <div class="d-flex justify-content-end pt-3">
-                  <button type="button" class="btn btn-light btn-lg">Reset all</button>
-                  <button type="button" class="btn btn-warning btn-lg ms-2">Register</button>
-                </div> -->
-
+          
 
 
                     <div class="d-flex justify-content-center">

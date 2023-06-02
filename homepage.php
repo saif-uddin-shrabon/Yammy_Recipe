@@ -28,6 +28,11 @@ if (isset($_SESSION["email"])) {
   <!-- MDB -->
   <link rel="stylesheet" href="css/mdb.min.css" />
 
+
+   
+            <!-- jQuery library -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <style>
     .divider:after,
     .divider:before {
@@ -92,7 +97,7 @@ if (isset($_SESSION["email"])) {
             <div class="modal fade" id="staticBackdrop4" tabindex="-1" aria-labelledby="exampleModalLabel4"
               aria-hidden="true">
               <div class="modal-dialog d-flex justify-content-center">
-                <div class="modal-content w-75">
+                <div class="modal-content w-100">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel4">Write to us</h5>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
@@ -101,6 +106,15 @@ if (isset($_SESSION["email"])) {
                     <form action="insert.php" method="POST" enctype='multipart/form-data'>
 
 
+              <!-- Image -->
+                     
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body text-center">
+            <div class="mt-3 mb-4">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                class="rounded-circle img-fluid" id="selectedImage" style="width: 100px;" />
+            </div>
+    
 
                       <!--Recipe Title input -->
                       <div class="form-outline mb-4">
@@ -122,8 +136,34 @@ if (isset($_SESSION["email"])) {
                       <!-- JPg file -->
                       <div class="form-outline mb-4">
                         <label class="form-label" for="customFile">Add Image</label>
-                        <input type="file" class="form-control" id="customFile " name="image" />
+                        <input type="file" class="form-control" id="imageInput" name="image" />
                       </div>
+
+                      <!-- Ajac script -->
+
+                <!--  Ajax script -->
+                <script>
+                    $(document).ready(function() {
+                      
+                        $('#imageInput').change(function() {
+                        var file = $(this)[0].files[0]; 
+
+                        if (file) {
+                            var reader = new FileReader(); 
+
+                            reader.onload = function(e) {
+                            
+                            $('#selectedImage').attr('src', e.target.result);
+                            };
+
+                            reader.readAsDataURL(file); 
+                        } else {
+                            
+                            $('#selectedImage').attr('src', 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp');
+                        }
+                        });
+                    });
+                    </script>
 
                       <!-- Checkbox -->
                       <div class="form-check d-flex justify-content-center mb-4">
@@ -253,8 +293,12 @@ if (isset($_SESSION["email"])) {
       <p class='text-muted'>
       " . $row['Recipe_Details'] . "
       </p>
-      <button type='button' class='btn btn-primary'>Edit</button>
-      <button type='button' class='btn btn-primary'>Delete</button>
+      
+      <a href='update.php?id=$row[id]'  class='btn btn-primary'>Edit</a>
+      <a href='delete.php?id=$row[id]' class='btn btn-primary'>Delete</a>
+      
+     
+
     </div>
   </div>";
       }
@@ -276,18 +320,30 @@ if (isset($_SESSION["email"])) {
           <div class="row d-flex justify-content-center"  >
             <div class="" >
 
-              <div class="card" id="chat2"
+            <div class="card" id="chat2"
                 style="border-color: transparent; box-shadow: inset 0px 0px 0px 1px transparent;">
                 <div class="card-header d-flex justify-content-between align-items-center p-3">
                   <h5 class="mb-0">Chat</h5>
-                  <button type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">Let's Chat
-                    App</button>
+                  <form action="" method="post">
+                    <!-- form fields and other content -->
+                    <button type="submit" class="btn btn-primary btn-sm" name="deleteChatBootHistory" data-mdb-ripple-color="dark">Clear Chat</button>
+                  </form>
+                  <?php
+
+                  if (isset($_POST['deleteChatBootHistory'])) {
+                    $sql = "DELETE FROM `massage`";
+                    $result = mysqli_query($con, $sql);
+                  }
+
+                  ?>
                 </div>
 
 
-                <div  style="position: relative; height: 400px; overflow-y: scroll;">
+                <div id="chat-container"  style="position: relative; height: 400px; overflow-y: scroll;">
 
-               <?php
+
+
+                <?php
 
                 include 'config.php';
 
@@ -314,7 +370,7 @@ if (isset($_SESSION["email"])) {
                   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
                   curl_setopt($ch, CURLOPT_HTTPHEADER, [
                     'Content-Type: application/json',
-                    'Authorization: Bearer **API**',  // api key
+                    'Authorization: Bearer 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',  // api key
                   ]);
                   curl_setopt($ch, CURLOPT_POSTFIELDS, $PostData);
 
@@ -374,14 +430,21 @@ if (isset($_SESSION["email"])) {
                 
                 ?>
 
+
+               
+
+
+              
+               
+
                 </div>
 
               </div>
 
 
+         
 
-
-              <form action=" " method="POST">
+              <form action=" " method="POST" id="chat-form">
                 <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
                   <img src="img/chef.jpg" alt="avatar 3" style="width: 40px; height: 100%;">
                   <input type="text" name="Promt" class="form-control form-control-lg" id="exampleFormControlInput1"

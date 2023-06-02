@@ -1,4 +1,65 @@
-<?php
+             
+           <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <!-- MDB icon -->
+  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="css/mdb.min.css" />
+
+
+   
+            <!-- jQuery library -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+    .divider:after,
+    .divider:before {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #eee;
+    }
+  </style>
+
+</head>
+
+<body>  
+             
+             
+             <div class="card" id="chat2"
+                style="border-color: transparent; box-shadow: inset 0px 0px 0px 1px transparent;">
+                <div class="card-header d-flex justify-content-between align-items-center p-3">
+                  <h5 class="mb-0">Chat</h5>
+                  <form action="" method="post">
+                    <!-- form fields and other content -->
+                    <button type="submit" class="btn btn-primary btn-sm" name="deleteChatBootHistory" data-mdb-ripple-color="dark">Clear Chat</button>
+                  </form>
+                  <?php
+
+                  if (isset($_POST['deleteChatBootHistory'])) {
+                    $sql = "DELETE FROM `massage`";
+                    $result = mysqli_query($con, $sql);
+                  }
+
+                  ?>
+                </div>
+
+
+                <div id="chat-container"  style="position: relative; height: 400px; overflow-y: scroll;">
+
+
+
+                <?php
 
                 include 'config.php';
 
@@ -84,3 +145,23 @@
                 }
                 
                 ?>
+
+
+               
+
+
+              
+               
+
+                </div>
+
+              </div>
+
+
+               <!-- MDB -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Custom scripts -->
+  <script type="text/javascript"></script>
+</body>
+
+</html>

@@ -6,8 +6,12 @@ $recipeIngredient = $_POST['recipe_ingredient'];
 $recipeDetails = $_POST['recipe_details'];
 $recipeImage = $_FILES['image'];
 
+
+
 $imageLocation = $_FILES['image']['tmp_name'];
 $imageName = $_FILES['image']['name'];
+
+
 
 $image_des = "img/" . $imageName;
 

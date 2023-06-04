@@ -103,6 +103,8 @@ if (isset($_SESSION["email"])) {
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body p-4">
+
+                  
                     <form action="insert.php" method="POST" enctype='multipart/form-data'>
 
 
@@ -226,7 +228,7 @@ if (isset($_SESSION["email"])) {
   <div class="row">
     <div class="col-md-8">
 
-     
+    
 
       <?php
       include 'config.php';
@@ -276,8 +278,8 @@ if (isset($_SESSION["email"])) {
 
       while ($row = mysqli_fetch_array($allData)) {
         echo "
-    <div class='row gx-5 mt-3'>
-    <div class='col-md-6 mb-4'>
+    <div class='row gx-5 mt-3 ms-3'>
+    <div class='col-md-4 mb-4 '>
       <div class='bg-image hover-overlay ripple shadow-2-strong rounded-5' data-mdb-ripple-color='light'>
         <img src='" . $row['Image'] . "' class='img-fluid' />
         <a href='#'>
@@ -370,7 +372,7 @@ if (isset($_SESSION["email"])) {
                   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
                   curl_setopt($ch, CURLOPT_HTTPHEADER, [
                     'Content-Type: application/json',
-                    'Authorization: Bearer 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',  // api key
+                    'Authorization: Bearer ***GPT api**',  // api key
                   ]);
                   curl_setopt($ch, CURLOPT_POSTFIELDS, $PostData);
 
